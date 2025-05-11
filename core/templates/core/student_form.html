@@ -1,0 +1,201 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card student-form-card">
+                <div class="card-header">
+                    <h3 class="mb-0">{% if student %}Edit Student{% else %}Add New Student{% endif %}</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label for="name" class="form-label">Student Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <input type="text" name="name" id="name" class="form-control" value="{{ student.name|default:'' }}" required>
+                            </div>
+                            <div class="invalid-feedback">
+                                Please enter student name.
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="roll_number" class="form-label">Roll Number</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                                <input type="text" name="roll_number" id="roll_number" class="form-control" value="{{ student.roll_number|default:'' }}" required>
+                            </div>
+                            <div class="invalid-feedback">
+                                Please enter roll number.
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="ia1" class="form-label">IA1 Marks</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-chart-bar"></i></span>
+                                <input type="number" name="ia1" id="ia1" class="form-control" value="{{ student.ia1|default:'' }}" min="0" max="100" required>
+                            </div>
+                            <div class="form-text">Marks should be between 0 and 100</div>
+                            <div class="invalid-feedback">
+                                Please enter valid marks (0-100).
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="ia2" class="form-label">IA2 Marks</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-chart-line"></i></span>
+                                <input type="number" name="ia2" id="ia2" class="form-control" value="{{ student.ia2|default:'' }}" min="0" max="100" required>
+                            </div>
+                            <div class="form-text">Marks should be between 0 and 100</div>
+                            <div class="invalid-feedback">
+                                Please enter valid marks (0-100).
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Save Student
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .student-form-card {
+        margin-top: 2rem;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px var(--shadow-color);
+        background: var(--bg-white);
+        overflow: hidden;
+    }
+
+    .student-form-card .card-header {
+        background: var(--gradient-primary);
+        color: var(--text-light);
+        border-radius: 10px 10px 0 0 !important;
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--border-light);
+    }
+
+    .student-form-card .card-header h3 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin: 0;
+        color: var(--text-light);
+    }
+
+    .student-form-card .card-body {
+        padding: 2rem;
+        background: var(--bg-white);
+    }
+
+    .student-form-card .form-label {
+        color: var(--text-dark);
+        font-weight: 500;
+        margin-bottom: 0.8rem;
+        font-size: 0.95rem;
+    }
+
+    .student-form-card .input-group {
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .student-form-card .input-group-text {
+        background: var(--bg-light);
+        border: 1px solid var(--border-light);
+        border-right: none;
+        color: var(--text-dark);
+    }
+
+    .student-form-card .form-control {
+        padding: 0.8rem 1rem;
+        border: 1px solid var(--border-light);
+        border-left: none;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: var(--bg-white);
+        color: var(--text-dark);
+    }
+
+    .student-form-card .form-control:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        background: var(--bg-white);
+        color: var(--text-dark);
+    }
+
+    .student-form-card .form-control::placeholder {
+        color: var(--text-muted);
+    }
+
+    .student-form-card .form-text {
+        color: var(--text-muted);
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    .student-form-card .btn-primary {
+        padding: 0.8rem;
+        font-size: 1.1rem;
+        font-weight: 500;
+        border-radius: 5px;
+        background: var(--accent);
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .student-form-card .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px var(--shadow-color);
+        background: var(--accent);
+    }
+
+    .student-form-card .invalid-feedback {
+        color: var(--danger);
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    @media (max-width: 768px) {
+        .student-form-card {
+            margin: 1rem;
+        }
+        
+        .student-form-card .card-body {
+            padding: 1.5rem;
+        }
+        
+        .student-form-card .card-header {
+            padding: 1.2rem;
+        }
+        
+        .student-form-card .card-header h3 {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+<script>
+// Form validation
+(function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
+</script>
+{% endblock %} 

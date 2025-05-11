@@ -1,0 +1,48 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="search-container">
+    <h2 class="text-center mb-4">Student Search</h2>
+    <form method="post" class="d-flex">
+        {% csrf_token %}
+        <input type="text" name="student_id" class="form-control me-2" placeholder="Enter Student ID (e.g., A001)" required>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    {% if student %}
+    <div class="student-info">
+        <h3>Student Information</h3>
+        <table class="table">
+            <tr>
+                <th>Name:</th>
+                <td>{{ student.name }}</td>
+            </tr>
+            <tr>
+                <th>ID:</th>
+                <td>{{ student.student_id }}</td>
+            </tr>
+            <tr>
+                <th>IA1:</th>
+                <td>{{ student.ia1 | floatformat:0}}</td>
+            </tr>
+            <tr>
+                <th>IA2:</th>
+                <td>{{ student.ia2 | floatformat:0}}</td>
+            </tr>
+            <tr>
+                <th>IA3:</th>
+                <td>{{ student.ia3 | floatformat:0}}</td>
+            </tr>
+            <tr>
+                <th>Absences:</th>
+                <td>{{ student.absences | floatformat:0}}</td>
+            </tr>
+            <tr>
+                <th>Predicted Score:</th>
+                <td>{{ student.predicted_marks | floatformat:0}}</td>
+            </tr>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %} 
